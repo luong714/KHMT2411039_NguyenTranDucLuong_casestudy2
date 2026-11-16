@@ -19,6 +19,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return FutureBuilder<List<AppNotification>>(
       future: _future,
       builder: (context, snapshot) {
@@ -56,7 +57,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 itemBuilder: (_, index) {
                   final item = notifications[index];
                   return ListTile(
-                    tileColor: item.isRead ? null : Colors.indigo.withValues(alpha: .08),
+                    tileColor: item.isRead
+                        ? null
+                        : colorScheme.primary.withValues(alpha: .08),
                     leading: Icon(item.isRead
                         ? Icons.notifications_none
                         : Icons.notifications_active),

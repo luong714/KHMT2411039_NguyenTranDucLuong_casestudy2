@@ -37,10 +37,106 @@ class _TaskManagerAppState extends State<TaskManagerApp> {
 
   @override
   Widget build(BuildContext context) {
+    const primaryBlue = Color(0xFF1565C0);
+    const softBlue = Color(0xFFE3F2FD);
+    const backgroundBlue = Color(0xFFF5FAFF);
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: primaryBlue,
+      brightness: Brightness.light,
+    ).copyWith(
+      primary: primaryBlue,
+      onPrimary: Colors.white,
+      secondary: const Color(0xFF1E88E5),
+      onSecondary: Colors.white,
+      surface: Colors.white,
+      onSurface: const Color(0xFF0F172A),
+      outline: const Color(0xFF90CAF9),
+    );
     return MaterialApp(
       title: 'Task Manager',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        colorScheme: colorScheme,
+        scaffoldBackgroundColor: backgroundBlue,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: primaryBlue,
+          elevation: 0,
+          centerTitle: false,
+        ),
+        navigationBarTheme: NavigationBarThemeData(
+          backgroundColor: Colors.white,
+          indicatorColor: softBlue,
+          iconTheme: WidgetStateProperty.resolveWith(
+            (states) => IconThemeData(
+              color: states.contains(WidgetState.selected)
+                  ? primaryBlue
+                  : const Color(0xFF475569),
+            ),
+          ),
+          labelTextStyle: WidgetStateProperty.resolveWith(
+            (states) => TextStyle(
+              color: states.contains(WidgetState.selected)
+                  ? primaryBlue
+                  : const Color(0xFF475569),
+              fontWeight: states.contains(WidgetState.selected)
+                  ? FontWeight.w600
+                  : FontWeight.w500,
+            ),
+          ),
+        ),
+        cardTheme: const CardThemeData(
+          color: Colors.white,
+          elevation: 1,
+          margin: EdgeInsets.symmetric(vertical: 6),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: colorScheme.outline),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: colorScheme.outline.withValues(alpha: .6)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: colorScheme.primary, width: 1.4),
+          ),
+        ),
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(
+            backgroundColor: colorScheme.primary,
+            foregroundColor: colorScheme.onPrimary,
+            minimumSize: const Size.fromHeight(46),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: colorScheme.primary,
+            side: BorderSide(color: colorScheme.primary.withValues(alpha: .55)),
+            minimumSize: const Size.fromHeight(44),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: colorScheme.primary,
+          ),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: primaryBlue,
+          foregroundColor: Colors.white,
+        ),
+        snackBarTheme: const SnackBarThemeData(
+          behavior: SnackBarBehavior.floating,
+        ),
         useMaterial3: true,
       ),
       home: _user == null

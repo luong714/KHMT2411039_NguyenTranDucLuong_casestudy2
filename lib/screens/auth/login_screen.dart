@@ -58,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -69,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(Icons.task_alt, size: 64),
+                  Icon(Icons.task_alt, size: 64, color: colorScheme.primary),
                   const SizedBox(height: 16),
                   Text(
                     _registering ? 'Tạo tài khoản' : 'Đăng nhập',
@@ -103,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   if (_error != null) ...[
                     const SizedBox(height: 12),
-                    Text(_error!, style: TextStyle(color: Colors.red.shade700)),
+                    Text(_error!, style: TextStyle(color: colorScheme.error)),
                   ],
                   const SizedBox(height: 20),
                   FilledButton(
